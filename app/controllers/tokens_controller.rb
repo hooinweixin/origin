@@ -5,12 +5,16 @@ require 'digest/sha1'
 	def get
 
 		if params[ :echostr].nil?
-			user = params[ :FromUserName]
-			time = params[ :CreateTime]
-			content = params[ :Content]
 			
-			
-			render(:text => "hello")
+			xml = params[ :xml]
+
+			host = xml[ :ToUserName]
+			user = xml[ :FromUserName]
+			time = xml[ :CreateTime]
+			content = xml[ :Content]
+			type = xml[ :MsgType]
+
+			render :xml => {:name => "David"}.to_xml
 		else
 			sign = params[ :signature]
 			time = params[ :timestamp]
