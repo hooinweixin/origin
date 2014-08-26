@@ -3,30 +3,38 @@ class TokensController < ApplicationController
 require 'digest/sha1'
 
 	def get
-		sign = params[ :signature]
-		time = params[ :timestamp]
-		nonce = params[ :nonce]
-		echostr = params[ :echostr]
 
-		token = "huyindianzishangwu"
+		if params[ :echostr].nil?
+			user = params[ :FromUserName]
+			time = params[ :CreateTime]
+			content = params[ :Content]
+			
+			
+			render(:text => "hello")
+		else
+			sign = params[ :signature]
+			time = params[ :timestamp]
+			nonce = params[ :nonce]
+			echostr = params[ :echostr]
 
-		array = [token , time , nonce]
+			token = "huyindianzishangwu"
 
-		array = array.sort 
+			array = [token , time , nonce]
 
-		str = array[0] + array[1] + array[2]
+			array = array.sort 
 
-		str = Digest::SHA1.hexdigest(str)
+			str = array[0] + array[1] + array[2]
+
+			str = Digest::SHA1.hexdigest(str)
 
 
-		#render(:text => str)
+			#render(:text => str)
 		
-		if str == sign 
-		    render(:text => echostr)   
-			return true
-		end
-
-
+			if str == sign 
+			    render(:text => echostr)   
+				return true
+			end
+		end	
 	end
 
 
