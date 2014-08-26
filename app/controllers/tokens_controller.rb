@@ -16,11 +16,11 @@ require 'digest/sha1'
 
 			builder = Builder::XmlMarkup.new
   			xml = builder.xml{ |b|  
-  				b.ToUserName(user); 
-  				b.FromUserName(host); 
-  				b.CreateTime(Time.now.to_i);
-  				b.MsgType("text");
-  				b.Content("hello")
+  				b.ToUserName("<![CDATA[" + user + "]]>"); 
+  				b.FromUserName("<![CDATA[" + host + "]]>"); 
+  				b.CreateTime("<![CDATA[" + Time.now.to_i.to_s + "]]>");
+  				b.MsgType("<![CDATA[text]]>");
+  				b.Content("<![CDATA[hello]]>")
   				}
 
 
