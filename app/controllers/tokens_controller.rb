@@ -14,7 +14,9 @@ require 'digest/sha1'
 			content = xml[ :Content]
 			type = xml[ :MsgType]
 
-			render :xml => {:name => "David"}.to_xml
+			data = {:ToUserName => user, :FromUserName => host , :CreateTime => Time.now.to_i , :MsgType => "text" , :Content => "hello" }.to_xml
+
+			render :xml => data
 		else
 			sign = params[ :signature]
 			time = params[ :timestamp]
