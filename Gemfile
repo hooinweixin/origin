@@ -10,7 +10,7 @@ end
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jbuilder'
 gem 'unicorn'
-#gem 'builder', '~> 2.0'
+gem 'builder'
 
 gem 'rest-client'
 gem 'faraday'
