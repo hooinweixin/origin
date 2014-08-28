@@ -11,7 +11,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jbuilder'
 gem 'unicorn'
 gem 'builder'
-
+gem 'nokogiri'
 gem 'rest-client'
 gem 'faraday'
 gem 'qiniu-rs'
