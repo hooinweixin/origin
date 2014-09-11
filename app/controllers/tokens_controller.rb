@@ -16,13 +16,43 @@ require 'nokogiri'
 			content = xml[ :Content]
 			type = xml[ :MsgType]
 
+			ch = Content.find_by_id(1);
+			msg = ch.content + "\n" + ch.content_2 + "\n\n";
+
+			truck = Truck.find_by_weixin(user);
+
+			if truck.nil?
+
+				truck = TruckOut.find_by_weixin(user);
+
+				info = DriverInfo.find_by_truck_id(truck.id);
+
+				workplace = Workplace.find_by_id(info.workplace_id);
+			
+			else
+
+				info = TruckInfo.find_by_truck_id(truck.id);
+
+				workplace = Workplace.find_by_id(info.start_id);
+ 
+			end
+
+			manager = Manager.find_by_id(info.manager_id);
+
+			msg = msg + ch.first  + ":  " +  info.id.to_s  +  "\n"
+			msg = msg + ch.second + ":  " +  truck.plate_num  +  "\n"
+			msg = msg + ch.third  + ":  " +  info.created_at.to_formatted_s(:time).to_s  +  "\n"
+			msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
+			msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
+
+
 			builder = Nokogiri::XML::Builder.new do |t|
   			   t.xml{
   			   	t.ToUserName(){t.cdata user}
   			    t.FromUserName(){t.cdata host}
   			    t.CreateTime Time.now.to_i.to_s 
   			    t.MsgType(){t.cdata "text"}
-  			    t.Content(){t.cdata "hello"}
+  			    t.Content(){t.cdata msg}
   			   }
 			end	
 
@@ -47,6 +77,9 @@ require 'nokogiri'
   			
   			#puts xml
 			#data = {:ToUserName => user, :FromUserName => host , :CreateTime => Time.now.to_i , :MsgType => "text" , :Content => "hello" }.to_xml
+
+
+
 
 			render :xml => builder.to_xml
 		else
