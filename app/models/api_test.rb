@@ -1,4 +1,4 @@
-#encoding: utf-8
+#encoding: utf-8	
 
 class ApiTest
 	def self.test_url 
@@ -14,6 +14,14 @@ class ApiTest
 
 		puts response
 	end
+
+def self.post
+		connection = Faraday.new( :url => test_url )
+		
+		response = connection.post( "/tokens/post").body
+		puts response
+	end
+
 end
 
 

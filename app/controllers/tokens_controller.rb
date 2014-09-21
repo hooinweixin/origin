@@ -109,5 +109,61 @@ require 'nokogiri'
 	end
 
 
+	def post
+
+		connection = Faraday.new( :url => "https://api.weixin.qq.com/" )
+		response = connection.get("cgi-bin/token?grant_type=client_credential&appid=wxb318729492ab6790&secret=1a286462ef64e8f36e9a25fc691e71e8", ).body		
+
+		token = JSON.parse(response)["access_token"] 
+
+		json = {
+		:touser => params[ :userID],
+		:template_id => "U2ZYL82NWaxmtmQE1Dw-5kyxyH5xvqjErF7jZjNij90",
+		:url => "",
+		:topcolor => "#FFCA00",
+		:data =>{
+			:first =>  {
+			:value => "上海勤顺建设工程有限公司\n土方车电子账单\n",
+			:color => "#173177"
+			},
+
+			:keyword1 => {
+			:value => params[ :id],
+			:color => "#173177"
+			},
+			
+			:keyword2 => {
+			:value => params[ :plate],
+			:color => "#173177"
+			},
+
+			:keyword3 => {
+			:value => params[ :time],
+			:color => "#173177"
+			},
+
+			:keyword4 => {
+			:value => params[ :place],
+			:color => "#173177"
+			},
+			:keyword5 => {
+			:value => "徐苒茨",
+			:color => "#173177"
+			},
+			:remark => {
+			:value => "\n本短信可做为结算依据，复制转发无效",
+			:color => "#173177"
+			}
+		}
+	}.to_json	
+ 
+		connection = Faraday.new( :url => "https://api.weixin.qq.com/" )
+
+		response = connection.post( "/cgi-bin/message/template/send?access_token=" + token, json).body		
+		puts response
+		
+		render :json =>{ :result => 0 }
+	end
+
 
 end
