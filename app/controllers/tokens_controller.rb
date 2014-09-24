@@ -7,7 +7,8 @@ require 'nokogiri'
 	def get
 
 		if params[ :echostr].nil?
-			
+
+
   			xml = params[ :xml]
 
 			host = xml[ :ToUserName]
@@ -15,6 +16,30 @@ require 'nokogiri'
 			time = xml[ :CreateTime]
 			content = xml[ :Content]
 			type = xml[ :MsgType]
+		
+
+		if content[0..1] == "绑定"
+
+
+			truckuser = Truckuser.find_by_IDcard(content[3..21]);
+
+			if truckuser.nil? 
+
+				msg = "您输入的身份证号不正确!"
+
+			else
+
+				truckuser.weixin =  user
+
+			 	truckuser.save
+
+				msg = "微信号绑定成功!"
+
+			end
+
+
+		else 
+
 
 			ch = Content.find_by_id(1);
 			msg = ch.content + "\n" + ch.content_2 + "\n\n";
@@ -45,17 +70,7 @@ require 'nokogiri'
 			msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
 			msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
 
-
-			builder = Nokogiri::XML::Builder.new do |t|
-  			   t.xml{
-  			   	t.ToUserName(){t.cdata user}
-  			    t.FromUserName(){t.cdata host}
-  			    t.CreateTime Time.now.to_i.to_s 
-  			    t.MsgType(){t.cdata "text"}
-  			    t.Content(){t.cdata msg}
-  			   }
-			end	
-
+		end
 			# builder = Builder::XmlMarkup.new
   	# 		xml = builder.xml{ |b|
   	# 			b.ToUserName("<<![CDATA[" + user + "]]>"); 
@@ -79,7 +94,15 @@ require 'nokogiri'
 			#data = {:ToUserName => user, :FromUserName => host , :CreateTime => Time.now.to_i , :MsgType => "text" , :Content => "hello" }.to_xml
 
 
-
+			builder = Nokogiri::XML::Builder.new do |t|
+  			   t.xml{
+  			   	t.ToUserName(){t.cdata user}
+  			    t.FromUserName(){t.cdata host}
+  			    t.CreateTime Time.now.to_i.to_s 
+  			    t.MsgType(){t.cdata "text"}
+  			    t.Content(){t.cdata msg}
+  			   }
+  			 end
 
 			render :xml => builder.to_xml
 		else
