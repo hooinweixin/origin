@@ -15,10 +15,18 @@ class ApiTest
 		puts response
 	end
 
-def self.post
+	def self.post
 		connection = Faraday.new( :url => test_url )
 		
 		response = connection.post( "/tokens/post").body
+		puts response
+	end
+
+
+	def self.button
+		connection = Faraday.new( :url => test_url )
+		
+		response = connection.post( "/tokens/button").body
 		puts response
 	end
 

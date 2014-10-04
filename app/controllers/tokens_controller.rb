@@ -6,7 +6,8 @@ require 'nokogiri'
 
 	def get
 
-		if params[ :echostr].nil?
+
+		if params[ :echostr].nil? 
 
 
   			xml = params[ :xml]
@@ -14,63 +15,86 @@ require 'nokogiri'
 			host = xml[ :ToUserName]
 			user = xml[ :FromUserName]
 			time = xml[ :CreateTime]
-			content = xml[ :Content]
 			type = xml[ :MsgType]
-		
-
-		if content[0..1] == "绑定"
-
-
-			truckuser = Truckuser.find_by_IDcard(content[3..21]);
-
-			if truckuser.nil? 
-
-				msg = "您输入的身份证号不正确!"
-
-			else
-
-				truckuser.weixin =  user
-
-			 	truckuser.save
-
-				msg = "微信号绑定成功!"
-
-			end
-
-
-		else 
-
-
-			ch = Content.find_by_id(1);
-			msg = ch.content + "\n" + ch.content_2 + "\n\n";
-
-			truck = Truck.find_by_weixin(user);
-
-			if truck.nil?
-
-				truck = TruckOut.find_by_weixin(user);
-
-				info = DriverInfo.find_by_truck_id(truck.id);
-
-				workplace = Workplace.find_by_id(info.workplace_id);
 			
-			else
+			if type == "text"
+			
+				content = xml[ :Content]
+			
 
-				info = TruckInfo.find_by_truck_id(truck.id);
+				if content[0..1] == "BD"
 
-				workplace = Workplace.find_by_id(info.start_id);
+					id = content[3..21]	
+
+					truckuser = Truckuser.find_by_IDcard(id);
+
+					if truckuser.nil? 
+
+						msg = "您输入的身份证号不正确!"
+
+					else
+
+						truckuser.weixin =  user
+
+			 			truckuser.save
+
+						msg = "微信号绑定成功!"
+
+					end
+
+				elsif content[0..3] == "微信绑定"
+					
+					msg = "请输入BD+空格+身份证号码绑定微信！"
+				
+				else 
+
+
+					ch = Content.find_by_id(1);
+					msg = ch.content + "\n" + ch.content_2 + "\n\n";
+
+					truck = Truck.find_by_weixin(user);
+
+					if truck.nil?
+
+						truck = TruckOut.find_by_weixin(user);
+
+						info = DriverInfo.find_by_truck_id(truck.id);
+
+						workplace = Workplace.find_by_id(info.workplace_id);
+			
+					else
+
+						info = TruckInfo.find_by_truck_id(truck.id);
+
+						workplace = Workplace.find_by_id(info.start_id);
  
-			end
+					end
 
-			manager = Manager.find_by_id(info.manager_id);
+					manager = Manager.find_by_id(info.manager_id);
 
-			msg = msg + ch.first  + ":  " +  info.id.to_s  +  "\n"
-			msg = msg + ch.second + ":  " +  truck.plate_num  +  "\n"
-			msg = msg + ch.third  + ":  " +  info.created_at.to_formatted_s(:time).to_s  +  "\n"
-			msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
-			msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
+					msg = msg + ch.first  + ":  " +  info.id.to_s  +  "\n"
+					msg = msg + ch.second + ":  " +  truck.plate_num  +  "\n"
+					msg = msg + ch.third  + ":  " +  info.created_at.to_formatted_s(:time).to_s  +  "\n"
+					msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
+					msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
 
-		end
+				end
+			
+			elsif type == "event"
+
+
+				event = xml[ :Event]
+
+				if event == "subscribe"
+
+					msg = "欢迎关注虎印电子微信服务号！"
+
+				elsif event == "CLICK"
+
+					msg = "请输入BD+空格+身份证号码绑定微信！"
+
+				end
+			end	
 			# builder = Builder::XmlMarkup.new
   	# 		xml = builder.xml{ |b|
   	# 			b.ToUserName("<<![CDATA[" + user + "]]>"); 
@@ -106,6 +130,7 @@ require 'nokogiri'
 
 			render :xml => builder.to_xml
 		else
+
 			sign = params[ :signature]
 			time = params[ :timestamp]
 			nonce = params[ :nonce]
@@ -188,5 +213,35 @@ require 'nokogiri'
 		render :json =>{ :result => 0 }
 	end
 
+
+	def button
+
+		connection = Faraday.new( :url => "https://api.weixin.qq.com/" )
+		response = connection.get("cgi-bin/token?grant_type=client_credential&appid=wxb318729492ab6790&secret=1a286462ef64e8f36e9a25fc691e71e8", ).body		
+
+		token = JSON.parse(response)["access_token"]
+
+
+		json = {
+			:button =>[
+			{
+			:type => "click",
+			:name => "微信绑定",
+			:key => "bd"
+			}]
+		}
+
+		json = JSON.generate(json.as_json)
+
+		puts json 
+
+		connection = Faraday.new( :url => "https://api.weixin.qq.com/" )
+
+		response = connection.post( "/cgi-bin/menu/create?access_token=" + token, json).body		
+		puts response
+		
+		render :json =>{ :result => 0 }
+
+	end
 
 end
