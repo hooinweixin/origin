@@ -176,7 +176,7 @@ require 'nokogiri'
 			},
 
 			:keyword1 => {
-			:value => params[ :id],
+			:value => "QS" + params[ :id],
 			:color => "#173177"
 			},
 			
