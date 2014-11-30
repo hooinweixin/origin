@@ -28,6 +28,12 @@ require 'nokogiri'
 
 					truckuser = Truckuser.find_by_IDcard(id);
 
+				 	if truckuser.nil?
+
+				 		truckuser = OutManagers.find_by_IDcard(id);
+				 	
+				 	end
+
 					if truckuser.nil? 
 
 						msg = "您输入的身份证号不正确!"
