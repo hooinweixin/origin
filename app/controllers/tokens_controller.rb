@@ -30,7 +30,7 @@ require 'nokogiri'
 
 				 	if truckuser.nil?
 
-				 		truckuser = OutManagers.find_by_IDcard(id);
+				 		truckuser = OutManager.find_by_IDcard(id);
 				 	
 				 	end
 
