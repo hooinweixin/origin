@@ -201,7 +201,7 @@ require 'nokogiri'
 			:color => "#173177"
 			},
 			:keyword5 => {
-			:value => "徐苒茨",
+			:value => params[ :manager_name],
 			:color => "#173177"
 			},
 			:remark => {
@@ -234,7 +234,13 @@ require 'nokogiri'
 			:type => "click",
 			:name => "微信绑定",
 			:key => "bd"
-			}]
+			},
+			{	
+           :type => "view",
+           :name => "后台管理",
+           :url => "http://merp.hooin.com.cn/"
+      		}
+		]
 		}
 
 		json = JSON.generate(json.as_json)
