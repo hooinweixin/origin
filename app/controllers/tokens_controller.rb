@@ -48,7 +48,7 @@ require 'nokogiri'
 				
 				else 
 
-
+					msg = "错误的消息！"
 					# ch = Content.find_by_id(1);
 					# msg = ch.content + "\n" + ch.content_2 + "\n\n";
 
@@ -165,7 +165,7 @@ require 'nokogiri'
 		token = JSON.parse(response)["access_token"] 
 
 		json = {
-		:touser => params[ :userID],
+		:touser => params[ :weixinID],
 		:template_id => "U2ZYL82NWaxmtmQE1Dw-5kyxyH5xvqjErF7jZjNij90",
 		:url => "",
 		:topcolor => "#FFCA00",
@@ -176,26 +176,26 @@ require 'nokogiri'
 			},
 
 			:keyword1 => {
-			:value => "QS" + params[ :id],
+			:value => "QS",
 			:color => "#173177"
 			},
 			
 			:keyword2 => {
-			:value => params[ :plate],
+			:value => "",
 			:color => "#173177"
 			},
 
 			:keyword3 => {
-			:value => params[ :time],
+			:value => "",
 			:color => "#173177"
 			},
 
 			:keyword4 => {
-			:value => params[ :place],
+			:value => "",
 			:color => "#173177"
 			},
 			:keyword5 => {
-			:value => params[ :manager_name],
+			:value => "",
 			:color => "#173177"
 			},
 			:remark => {
