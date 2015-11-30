@@ -26,23 +26,17 @@ require 'nokogiri'
 
 					id = content[3..21]	
 
-					truckuser = Truckuser.find_by_IDcard(id);
+					account = Account.find_by_id_card(id);
 
-				 	if truckuser.nil?
-
-				 		truckuser = OutManager.find_by_IDcard(id);
-				 	
-				 	end
-
-					if truckuser.nil? 
+					if account.nil? 
 
 						msg = "您输入的身份证号不正确!"
 
 					else
 
-						truckuser.weixin =  user
+						account.weixinID =  user
 
-			 			truckuser.save
+			 			account.save
 
 						msg = "微信号绑定成功!"
 
@@ -55,34 +49,34 @@ require 'nokogiri'
 				else 
 
 
-					ch = Content.find_by_id(1);
-					msg = ch.content + "\n" + ch.content_2 + "\n\n";
+					# ch = Content.find_by_id(1);
+					# msg = ch.content + "\n" + ch.content_2 + "\n\n";
 
-					truck = Truck.find_by_weixin(user);
+					# truck = Truck.find_by_weixin(user);
 
-					if truck.nil?
+					# if truck.nil?
 
-						truck = TruckOut.find_by_weixin(user);
+					# 	truck = TruckOut.find_by_weixin(user);
 
-						info = DriverInfo.find_by_truck_id(truck.id);
+					# 	info = DriverInfo.find_by_truck_id(truck.id);
 
-						workplace = Workplace.find_by_id(info.workplace_id);
+					# 	workplace = Workplace.find_by_id(info.workplace_id);
 			
-					else
+					# else
 
-						info = TruckInfo.find_by_truck_id(truck.id);
+					# 	info = TruckInfo.find_by_truck_id(truck.id);
 
-						workplace = Workplace.find_by_id(info.start_id);
+					# 	workplace = Workplace.find_by_id(info.start_id);
  
-					end
+					# end
 
-					manager = Manager.find_by_id(info.manager_id);
+					# manager = Manager.find_by_id(info.manager_id);
 
-					msg = msg + ch.first  + ":  " +  info.id.to_s  +  "\n"
-					msg = msg + ch.second + ":  " +  truck.plate_num  +  "\n"
-					msg = msg + ch.third  + ":  " +  info.created_at.to_formatted_s(:time).to_s  +  "\n"
-					msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
-					msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
+					# msg = msg + ch.first  + ":  " +  info.id.to_s  +  "\n"
+					# msg = msg + ch.second + ":  " +  truck.plate_num  +  "\n"
+					# msg = msg + ch.third  + ":  " +  info.created_at.to_formatted_s(:time).to_s  +  "\n"
+					# msg = msg + ch.fourth + ":  " +  workplace.name  +  "\n"
+					# msg = msg + ch.fifth  + ":  " +  manager.name  +  "\n"
 
 				end
 			
@@ -91,7 +85,7 @@ require 'nokogiri'
 
 				event = xml[ :Event]
 
-				if event == "subscribe"
+				if event  == "subscribe"
 
 					msg = "欢迎关注虎印电子微信服务号！"
 
@@ -234,12 +228,7 @@ require 'nokogiri'
 			:type => "click",
 			:name => "微信绑定",
 			:key => "bd"
-			},
-			{	
-           :type => "view",
-           :name => "后台管理",
-           :url => "http://merp.hooin.com.cn/"
-      		}
+			}
 		]
 		}
 
