@@ -166,27 +166,32 @@ require 'nokogiri'
 
 		json = {
 		:touser => params[ :weixinID],
-		:template_id => "OPENTM202354413",
+		:template_id => "yYqwcykZX0rkGl-0DLIVRLoEweR4sZmWk3qyS68ug4A",
 		:url => "",
 		:topcolor => "#FFCA00",
 		:data =>{
 			:first =>  {
-			:value => "装车已经成功，请使用订单号进行卸车匹配！",
+			:value => "装车成功，请使用订单号卸车！",
 			:color => "#173177"	
 			},
 
 			:keyword1 => {
-			:value => params[ :plate],
+			:value => params[ :id],
 			:color => "#173177"
 			},
 			
 			:keyword2 => {
-			:value => params[ :date],
+			:value => params[ :plate],
 			:color => "#173177"
 			},
+	
+			:keyword3 => {
+			:value => params[ :date],
+			:color => "#173177"
+			},								
 
 			:remark => {
-			:value => "\n本短信可做为结算依据，复制转发无效",
+			:value => "\n本信息时效24小时，请尽快卸车！",
 			:color => "#173177"
 			}
 		}

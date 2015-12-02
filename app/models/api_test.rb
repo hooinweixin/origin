@@ -18,7 +18,7 @@ class ApiTest
 	def self.post
 		connection = Faraday.new( :url => test_url )
 		
-		response = connection.post( "/tokens/post", {:weixinID => "obEFBt836gy8shmado2cSiUnUT38", :date => "2015-12-02 12:32" , :plate => "沪A 00001" }).body
+		response = connection.post( "/tokens/post", {:weixinID => "obEFBt836gy8shmado2cSiUnUT38", :date => "2015-12-02 12:32" , :plate => "沪A 00001" , :id => "2"}).body
 		puts response
 	end
 

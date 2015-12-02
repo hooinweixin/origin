@@ -24,3 +24,32 @@ Processing by TokensController#post as */*
   Parameters: {"date"=>"2015-12-02 12:32", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
 WARNING: Can't verify CSRF token authenticity
 Completed 200 OK in 310ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-12-02 19:32:39 +0800
+Processing by TokensController#post as */*
+  Parameters: {"date"=>"2015-12-02 12:32", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 1954ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-12-02 19:45:05 +0800
+Processing by TokensController#post as */*
+  Parameters: {"date"=>"2015-12-02 12:32", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 310ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-12-02 19:46:21 +0800
+Processing by TokensController#post as */*
+  Parameters: {"date"=>"2015-12-02 12:32", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 282ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+Connecting to database specified by database.yml
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-12-02 19:46:38 +0800
+Processing by TokensController#post as */*
+  Parameters: {"date"=>"2015-12-02 12:32", "id"=>"2", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 246ms (Views: 0.2ms | ActiveRecord: 0.0ms)
