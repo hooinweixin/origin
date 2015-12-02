@@ -1,1 +1,17 @@
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started POST "/tokens/button" for 127.0.0.1 at 2015-11-30 20:20:23 +0800
+Connecting to database specified by database.yml
+Processing by TokensController#button as */*
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 488ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+Connecting to database specified by database.yml
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-11-30 20:21:53 +0800
+Processing by TokensController#post as */*
+  Parameters: {"weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 381ms (Views: 0.5ms | ActiveRecord: 0.0ms)

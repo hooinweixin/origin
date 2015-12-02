@@ -166,13 +166,13 @@ require 'nokogiri'
 
 		json = {
 		:touser => params[ :weixinID],
-		:template_id => "U2ZYL82NWaxmtmQE1Dw-5kyxyH5xvqjErF7jZjNij90",
+		:template_id => "OPENTM202354413",
 		:url => "",
 		:topcolor => "#FFCA00",
 		:data =>{
 			:first =>  {
 			:value => "上海勤顺建设工程有限公司\n土方车电子账单\n",
-			:color => "#173177"
+			:color => "#173177"	
 			},
 
 			:keyword1 => {
