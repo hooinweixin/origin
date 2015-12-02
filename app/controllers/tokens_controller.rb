@@ -171,33 +171,20 @@ require 'nokogiri'
 		:topcolor => "#FFCA00",
 		:data =>{
 			:first =>  {
-			:value => "上海勤顺建设工程有限公司\n土方车电子账单\n",
+			:value => "装车已经成功，请使用订单号进行卸车匹配！",
 			:color => "#173177"	
 			},
 
 			:keyword1 => {
-			:value => "QS",
+			:value => params[ :plate],
 			:color => "#173177"
 			},
 			
 			:keyword2 => {
-			:value => "",
+			:value => params[ :date],
 			:color => "#173177"
 			},
 
-			:keyword3 => {
-			:value => "",
-			:color => "#173177"
-			},
-
-			:keyword4 => {
-			:value => "",
-			:color => "#173177"
-			},
-			:keyword5 => {
-			:value => "",
-			:color => "#173177"
-			},
 			:remark => {
 			:value => "\n本短信可做为结算依据，复制转发无效",
 			:color => "#173177"

@@ -15,3 +15,12 @@ Processing by TokensController#post as */*
   Parameters: {"weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
 WARNING: Can't verify CSRF token authenticity
 Completed 200 OK in 381ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+Connecting to database specified by database.yml
+
+
+Started POST "/tokens/post" for 127.0.0.1 at 2015-12-02 19:28:12 +0800
+Connecting to database specified by database.yml
+Processing by TokensController#post as */*
+  Parameters: {"date"=>"2015-12-02 12:32", "plate"=>"沪A 00001", "weixinID"=>"obEFBt836gy8shmado2cSiUnUT38"}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 310ms (Views: 0.5ms | ActiveRecord: 0.0ms)
